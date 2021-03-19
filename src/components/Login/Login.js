@@ -1,52 +1,22 @@
 import firebase from "firebase/app";
 import "firebase/auth";
-import React, { useContext, useState } from "react";
-import { useHistory, useLocation } from "react-router";
+import React, { useContext, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { userContext } from "../../App";
 import firebaseConfig from "../../firebase.config";
+import "./Login.css";
 !firebase.apps.length && firebase.initializeApp(firebaseConfig);
 const Login = () => {
-  const [loggedInUser, setLoggedInUser] = useContext(userContext);
-  const [newUser, setNewUser] = useState(false);
   const history = useHistory();
   const location = useLocation();
   const { from } = location.state || { from: { pathname: "/" } };
-  const handleGoogleSignIn = () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    firebase
-      .auth()
-      .signInWithPopup(provider)
-      .then((result) => {
-        const { displayName, email } = result.user;
-        const signInedUser = { name: displayName, email };
-        setLoggedInUser(signInedUser);
-        history.replace(from);
-      })
-      .catch((error) => {
-        const errorMessage = error.message;
-        console.log(errorMessage);
-      });
-  };
-
-  // blur handle
-  const handleBlur = (e) => {
-    let isFormValid = true;
-    if (e.target.name === "email") {
-      isFormValid = /\S+@\S+\.\S+/.test(e.target.value);
-    }
-    if (e.target.name === "password") {
-      const isPasswordValid = e.target.value.length > 6;
-      const passwordHasNumber = /\d{1}/.test(e.target.value);
-      isFormValid = isPasswordValid && passwordHasNumber;
-    }
-    if (isFormValid) {
-      const newUserInfo = { ...loggedInUser };
-      newUserInfo[e.target.name] = e.target.value;
-      setLoggedInUser(newUserInfo);
-    }
-  };
-  // form submit handle
-  const handleSubmit = (e) => {
+  const [newUser, setNewUser] = useState(false);
+  const [loggedInUser, setLoggedInUser] = useContext(userContext);
+  const { register, errors, watch, handleSubmit } = useForm({});
+  const password = useRef({});
+  password.current = watch("password", "");
+  const onSubmit = () => {
     // sign up
     if (loggedInUser.email && loggedInUser.password) {
       firebase
@@ -90,62 +60,159 @@ const Login = () => {
           setLoggedInUser(newUserInfo);
         });
     }
-    e.preventDefault();
   };
+
+  // blur handle
+  const handleBlur = (e) => {
+    let isFormValid = true;
+    if (e.target.name === "email") {
+      isFormValid = /\S+@\S+\.\S+/.test(e.target.value);
+    }
+    if (e.target.name === "password") {
+      const isPasswordValid = e.target.value.length > 6;
+      const passwordHasNumber = /\d{1}/.test(e.target.value);
+      isFormValid = isPasswordValid && passwordHasNumber;
+    }
+    if (e.target.name === "password_repeat") {
+      const isPasswordValid = e.target.value.length > 6;
+      const passwordHasNumber = /\d{1}/.test(e.target.value);
+      isFormValid = isPasswordValid && passwordHasNumber;
+    }
+    if (isFormValid) {
+      const newUserInfo = { ...loggedInUser };
+      newUserInfo[e.target.name] = e.target.value;
+      setLoggedInUser(newUserInfo);
+    }
+  };
+  // google sign
+  const handleGoogleSignIn = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then((result) => {
+        const { displayName, email } = result.user;
+        const signInedUser = { name: displayName, email };
+        setLoggedInUser(signInedUser);
+        history.replace(from);
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        console.log(errorMessage);
+      });
+  };
+
+  //facebook singin
+  const handleFbSignIn = () => {
+    const fbProvider = new firebase.auth.FacebookAuthProvider();
+    firebase
+      .auth()
+      .signInWithPopup(fbProvider)
+      .then((result) => {
+        const user = result;
+        console.log(user);
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        console.log(errorCode, errorMessage);
+      });
+  };
+
   return (
-    <div style={{ textAlign: "center" }}>
-      <h1>This is Login</h1>
-      <button className="btn btn-outline-primary" onClick={handleGoogleSignIn}>
-        Google Sign In
-      </button>
-      <h3>Sign up and sign in with Email</h3>
-      <div className="container">
-        <form onSubmit={handleSubmit} className="row g-3">
-          <div className="col-md-6">
-            <label for="inputEmail4" className="form-label">
-              Email
-            </label>
-            <input
-              onBlur={handleBlur}
-              type="email"
-              name="email"
-              className="form-control"
-              id="inputEmail4"
-            />
-          </div>
-          <div className="col-md-6">
-            <label for="inputPassword4" className="form-label">
-              Password
-            </label>
-            <input
-              onBlur={handleBlur}
-              type="password"
-              name="password"
-              className="form-control"
-              id="inputPassword4"
-            />
-          </div>
-          <div className="col-12 mt-3">
-            <input
-              className="btn btn-outline-primary"
-              type="submit"
-              value={newUser ? "Sign up" : "Sign in"}
-            />
-          </div>
-        </form>
-        <label htmlFor="newUser">No Account?</label>
+    <div className="login">
+      <form className="formStyle">
+        <h3 className="text-light">
+          {newUser ? "Create an account" : "Sign in"}
+        </h3>
+        {newUser && <label>Name</label>}
+        {newUser && (
+          <input
+            onBlur={handleBlur}
+            type="text"
+            id="name"
+            name="name"
+            ref={register({
+              required: "You must specify your name",
+            })}
+          />
+        )}
+        {errors.name && <p className="error">{errors.name.message}</p>}
+        <label>Username or Email</label>
         <input
-          onChange={() => setNewUser(!newUser)}
-          type="checkbox"
-          name="newUser"
+          onBlur={handleBlur}
+          name="email"
+          ref={register({
+            required: "You must specify your email",
+          })}
         />
-      </div>
-      <p style={{ color: "red" }}>{loggedInUser.error}</p>
+        {errors.email && <p className="error">{errors.email.message}</p>}
+        <label>Password</label>
+        <input
+          onBlur={handleBlur}
+          name="password"
+          type="password"
+          ref={register({
+            required: "You must specify a password",
+            minLength: {
+              value: 8,
+              message: "Password must have at least 8 characters",
+            },
+          })}
+        />
+        {errors.password && <p className="error">{errors.password.message}</p>}
+
+        {newUser && <label>Confirm password</label>}
+        {newUser && (
+          <input
+            onBlur={handleBlur}
+            name="password_repeat"
+            type="password"
+            ref={register({
+              validate: (value) =>
+                value === password.current || "The passwords do not match",
+            })}
+          />
+        )}
+        {errors.password_repeat && (
+          <p className="error">{errors.password_repeat.message}</p>
+        )}
+
+        <input
+          onClick={handleSubmit(onSubmit)}
+          type="submit"
+          value={newUser ? "Sign up" : "Sign in"}
+        />
+        <span className="text-danger">
+          {newUser ? "Already have an account?" : "Dont't have an account?"}
+        </span>
+        <Link onClick={() => setNewUser(!newUser)}>
+          {newUser ? "Sign in" : "Create an account"}
+        </Link>
+      </form>
+      <h6 className="mt-3" style={{ color: "red", textAlign: "center" }}>
+        {loggedInUser.error}
+      </h6>
       {loggedInUser.success && (
-        <p style={{ color: "green" }}>
-          User {newUser ? "created" : "Logged In"} successfully.
-        </p>
+        <h6 className="text-center" style={{ color: "green" }}>
+          User {newUser ? "created" : "sign in"} successfully.
+        </h6>
       )}
+      <h6 className="text-center text-light">Or</h6>
+      <button
+        onClick={handleGoogleSignIn}
+        className="mx-auto d-block btn btn-outline-primary"
+      >
+        Continue with Google
+      </button>
+      <button
+        onClick={handleFbSignIn}
+        className="mx-auto d-block btn btn-outline-primary"
+      >
+        Continue with Facebook
+      </button>
     </div>
   );
 };

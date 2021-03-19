@@ -1,7 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "./Header.css";
 const Header = () => {
+  const { rideType } = useParams();
   return (
     <div className="container">
       <nav className="navbar navbar-expand-lg navbar-light">
