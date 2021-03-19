@@ -1,0 +1,10 @@
+.riders-nav-link {
+  font-weight: 700;
+}
+.riders-hover:hover a {
+  background: linear-gradient(salmon, tomato);
+  border-radius: 5px;
+}
+.logo {
+  width: 150px;
+}

@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "rideType": "Bike",
+    "capacity": "3",
+    "rent": 80,
+    "img": "https://res.cloudinary.com/dxvzhnyuo/image/upload/v1616095068/bike_qugu7t.png"
+  },
+  {
+    "id": 2,
+    "rideType": "Car",
+    "capacity": "5",
+    "rent": 150,
+    "img": "https://res.cloudinary.com/dxvzhnyuo/image/upload/v1616095134/car_jizwy9.png"
+  },
+  {
+    "id": 3,
+    "rideType": "Bus",
+    "capacity": "52",
+    "rent": 50,
+    "img": "https://res.cloudinary.com/dxvzhnyuo/image/upload/v1616095177/bus_iffehq.png"
+  },
+  {
+    "id": 4,
+    "rideType": "Metro",
+    "capacity": "200",
+    "rent": 65,
+    "img": "https://res.cloudinary.com/dxvzhnyuo/image/upload/v1616095210/metro_o97dx3.png"
+  }
+]
