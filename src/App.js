@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { createContext, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
-import DestinationDetail from "./components/DestinationDetail/DestinationDetail";
+import DestinationDetailInfo from "./components/DestinationDetailInfo/DestinationDetailInfo";
 import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
 import Login from "./components/Login/Login";
@@ -10,6 +10,7 @@ import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 export const userContext = createContext();
 
 function App() {
+  const [logout, setLogout] = useState({});
   const [loggedInUser, setLoggedInUser] = useState({
     isSignedIn: false,
     name: "",
@@ -19,7 +20,9 @@ function App() {
     error: "",
   });
   return (
-    <userContext.Provider value={[loggedInUser, setLoggedInUser]}>
+    <userContext.Provider
+      value={[loggedInUser, setLoggedInUser, logout, setLogout]}
+    >
       <div>
         <Router>
           <Header></Header>
@@ -33,8 +36,11 @@ function App() {
             <Route path="/login">
               <Login></Login>
             </Route>
-            <PrivateRoute path="/destination/:rideType">
+            {/* <PrivateRoute path="/destination/:rideType">
               <DestinationDetail></DestinationDetail>
+            </PrivateRoute> */}
+            <PrivateRoute path="/destination/:rideType">
+              <DestinationDetailInfo></DestinationDetailInfo>
             </PrivateRoute>
           </Switch>
         </Router>

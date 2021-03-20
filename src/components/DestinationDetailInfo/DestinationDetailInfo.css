@@ -1,0 +1,85 @@
+.searchDiv {
+  border: 1px solid slateblue;
+  background-color: #353f53;
+  border-radius: 10px;
+}
+.destinationInfo {
+  background-color: #353f53;
+  border-radius: 10px;
+}
+.rideImg {
+  width: 50px;
+}
+.rideIcon {
+  width: 30px;
+}
+.rideBook {
+  background-color: lightgray;
+}
+.rideInfo {
+  font-weight: 500;
+  padding: 10px;
+}
+
+.destTitle {
+  color: #6591f1;
+  letter-spacing: 1.5px;
+  font-weight: 100;
+  font-size: 1.4em;
+}
+#timeline-content {
+  text-align: center;
+  padding: 30px;
+}
+.buttonStyle {
+  margin-left: 100px;
+}
+.listStyle {
+  background-color: #dbd7f3;
+}
+/* Timeline */
+.timeline {
+  border-left: 2px solid #004ffc;
+  border-bottom-right-radius: 2px;
+  border-top-right-radius: 2px;
+  background: #ffffff08;
+  color: #ffffffcc;
+  margin: 50px auto;
+  position: relative;
+  padding: 50px;
+  list-style: none;
+  text-align: left;
+}
+
+.timeline .event {
+  border-bottom: 1px dashed #ffffff1a;
+
+  position: relative;
+}
+.timeline .event:last-of-type {
+  padding-bottom: 0;
+  margin-bottom: 0;
+  border: none;
+}
+.timeline .event:before,
+.timeline .event:after {
+  position: absolute;
+  display: block;
+  top: 0;
+}
+.timeline .event:before {
+  left: -217.5px;
+  color: rgba(255, 255, 255, 0.4);
+  content: attr(data-date);
+  text-align: right;
+}
+.timeline .event:after {
+  box-shadow: 0 0 0 4px #004ffc;
+  left: -57.85px;
+  background: #313534;
+  border-radius: 50%;
+  height: 11px;
+  width: 11px;
+  content: "";
+  top: 5px;
+}

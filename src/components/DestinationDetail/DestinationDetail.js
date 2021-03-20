@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { useParams } from "react-router";
 import PeopleIcon from "../../images/peopleicon.png";
 import FakeData from "../FakeData/FakeData.json";
-import GoogleMap from "../GoogleMap";
+import GoogleMap from "../GoogleMap/GoogleMap";
 import "./DestinationDetail.css";
 
 const DestinationDetail = () => {
-  const [search, setSearch] = useState(false);
+  // const [search, setSearch] = useState(false);
   const [destination, setDestination] = useState({
     pickFrom: "",
     pickTo: "",
@@ -14,7 +14,6 @@ const DestinationDetail = () => {
   const [display, setDisplay] = useState(false);
   const { rideType } = useParams();
   const ride = FakeData.find((rd) => rd.rideType === rideType);
-  // console.log(ride);
   const handleBlur = (e) => {
     const value = e.target.value;
     setDestination({
@@ -26,10 +25,10 @@ const DestinationDetail = () => {
 
   return (
     <div className="container">
-      <h1>Destinaiton</h1>
+      <h1>Destinatin</h1>
       <div className="">
-        <div className="row">
-          <div className="col-md-4 col-sm">
+        <div className="row mt-3">
+          <div className="col-md-4">
             <div className="searchDiv">
               <div style={{ padding: "30px" }}>
                 <label className="text-light" htmlFor="">
@@ -61,7 +60,7 @@ const DestinationDetail = () => {
                 </label>
                 <input onBlur={handleBlur} type="date" name="" id="" />
                 <button
-                  onChange={() => setSearch(!search)}
+                  // onChange={() => setSearch(!search)}
                   onClick={() => setDisplay(true)}
                   className="btn btn-outline-primary mx-auto d-block"
                 >
@@ -71,7 +70,7 @@ const DestinationDetail = () => {
             </div>
           </div>
 
-          <div className="col-md-8 col-sm">
+          <div className="col-md-8">
             <GoogleMap></GoogleMap>
           </div>
         </div>

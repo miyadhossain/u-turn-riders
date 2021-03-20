@@ -4,12 +4,13 @@ import { userContext } from "../../App";
 import "./Header.css";
 const Header = () => {
   const [loggedInUser, setLoggedInUser] = useContext(userContext);
+  const [logout, setLogout] = useContext(userContext);
   return (
     <div className="container">
       <nav className="navbar navbar-expand-lg navbar-light">
         <div className="container-fluid">
           <Link to="/home" className="navbar-brand text-light">
-            U-Turn Riders
+            Riders
           </Link>
           <button
             className="navbar-toggler"
@@ -38,7 +39,7 @@ const Header = () => {
               </li>
               <li className="nav-item riders-hover">
                 <Link
-                  to="/destination"
+                  to="/destination/Bike"
                   className="nav-link riders-nav-link text-light"
                 >
                   Destination
@@ -60,15 +61,21 @@ const Header = () => {
                   Contact
                 </Link>
               </li>
-              <li className="nav-item riders-hover">
+              {/* <li className="nav-item riders-hover">
                 <Link
                   to="/login"
                   className="nav-link riders-nav-link text-light"
                 >
                   Login
-                  <p>{loggedInUser.name}</p>
                 </Link>
+              </li> */}
+              <li
+                onClick={() => setLogout({})}
+                className="nav-item riders-hover"
+              >
+                <p className="nav-link riders-nav-link text-light">Sign out</p>
               </li>
+              <li className="nav-item riders-hover nav-link riders-nav-link text-light"></li>
             </ul>
           </div>
         </div>

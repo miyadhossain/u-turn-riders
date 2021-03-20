@@ -2,7 +2,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import React, { useContext, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { userContext } from "../../App";
 import firebaseConfig from "../../firebase.config";
 import "./Login.css";
@@ -18,7 +18,7 @@ const Login = () => {
   password.current = watch("password", "");
   const onSubmit = () => {
     // sign up
-    if (loggedInUser.email && loggedInUser.password) {
+    if (newUser && loggedInUser.email && loggedInUser.password) {
       firebase
         .auth()
         .createUserWithEmailAndPassword(
@@ -30,6 +30,8 @@ const Login = () => {
           newUserInfo.success = true;
           newUserInfo.error = "";
           setLoggedInUser(newUserInfo);
+          updateUserName(loggedInUser.name);
+          history.replace(from);
         })
         .catch((error) => {
           const errorMessage = error.message;
@@ -49,6 +51,7 @@ const Login = () => {
           newUserInfo.success = true;
           newUserInfo.error = "";
           setLoggedInUser(newUserInfo);
+          updateUserName(loggedInUser.name);
           history.replace(from);
           console.log("sign in user info", res.user);
         })
@@ -60,6 +63,17 @@ const Login = () => {
           setLoggedInUser(newUserInfo);
         });
     }
+    // sign out
+    // firebase
+    //   .auth()
+    //   .signOut()
+    //   .then(() => {
+    //     // Sign-out successful.
+    //     setLoggedInUser({});
+    //   })
+    //   .catch((error) => {
+    //     // An error happened.
+    //   });
   };
 
   // blur handle
@@ -69,7 +83,7 @@ const Login = () => {
       isFormValid = /\S+@\S+\.\S+/.test(e.target.value);
     }
     if (e.target.name === "password") {
-      const isPasswordValid = e.target.value.length > 6;
+      const isPasswordValid = e.target.value.length > 8;
       const passwordHasNumber = /\d{1}/.test(e.target.value);
       isFormValid = isPasswordValid && passwordHasNumber;
     }
@@ -122,7 +136,20 @@ const Login = () => {
         console.log(errorCode, errorMessage);
       });
   };
+  const updateUserName = (name) => {
+    const user = firebase.auth().currentUser;
 
+    user
+      .updateProfile({
+        displayName: name,
+      })
+      .then(() => {
+        console.log("update successfully");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div className="login">
       <form className="formStyle">
@@ -190,9 +217,12 @@ const Login = () => {
         <span className="text-danger">
           {newUser ? "Already have an account?" : "Dont't have an account?"}
         </span>
-        <Link onClick={() => setNewUser(!newUser)}>
+        <a
+          className="text-light accountLink"
+          onClick={() => setNewUser(!newUser)}
+        >
           {newUser ? "Sign in" : "Create an account"}
-        </Link>
+        </a>
       </form>
       <h6 className="mt-3" style={{ color: "red", textAlign: "center" }}>
         {loggedInUser.error}
@@ -205,13 +235,13 @@ const Login = () => {
       <h6 className="text-center text-light">Or</h6>
       <button
         onClick={handleGoogleSignIn}
-        className="mx-auto d-block btn btn-outline-primary"
+        className="mx-auto d-block btn btn-outline-primary rounded-pill"
       >
         Continue with Google
       </button>
       <button
         onClick={handleFbSignIn}
-        className="mx-auto d-block btn btn-outline-primary"
+        className="mx-auto d-block btn btn-outline-primary rounded-pill"
       >
         Continue with Facebook
       </button>

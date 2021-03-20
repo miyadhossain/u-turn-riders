@@ -9,7 +9,7 @@ const Home = () => {
   }, []);
   return (
     <div className="container">
-      <div className="row backgroundStyle">
+      <div className="row">
         <div className="col-md-12 justify-content-center">
           <div className="row justify-content-center">
             {rides.map((ride) => (
