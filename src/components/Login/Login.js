@@ -109,8 +109,10 @@ const Login = () => {
       .auth()
       .signInWithPopup(fbProvider)
       .then((result) => {
-        const user = result;
-        console.log(user);
+        const { displayName, email } = result.user;
+        const signInedUser = { name: displayName, email };
+        setLoggedInUser(signInedUser);
+        history.replace(from);
       })
       .catch((error) => {
         // Handle Errors here.

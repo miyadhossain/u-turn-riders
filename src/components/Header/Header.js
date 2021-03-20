@@ -1,14 +1,15 @@
-import React from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+import { userContext } from "../../App";
 import "./Header.css";
 const Header = () => {
-  const { rideType } = useParams();
+  const [loggedInUser, setLoggedInUser] = useContext(userContext);
   return (
     <div className="container">
       <nav className="navbar navbar-expand-lg navbar-light">
         <div className="container-fluid">
-          <Link to="/home" className="navbar-brand">
-            Mega Riders
+          <Link to="/home" className="navbar-brand text-light">
+            U-Turn Riders
           </Link>
           <button
             className="navbar-toggler"
@@ -29,30 +30,43 @@ const Header = () => {
               <li className="nav-item riders-hover">
                 <Link
                   to="/home"
-                  className="nav-link riders-nav-link"
+                  className="nav-link riders-nav-link text-light"
                   aria-current="page"
                 >
                   Home
                 </Link>
               </li>
               <li className="nav-item riders-hover">
-                <Link to="/destination" className="nav-link riders-nav-link">
+                <Link
+                  to="/destination"
+                  className="nav-link riders-nav-link text-light"
+                >
                   Destination
                 </Link>
               </li>
               <li className="nav-item riders-hover">
-                <Link to="/blog" className="nav-link riders-nav-link">
+                <Link
+                  to="/blog"
+                  className="nav-link riders-nav-link text-light"
+                >
                   Blog
                 </Link>
               </li>
               <li className="nav-item riders-hover">
-                <Link to="/contact" className="nav-link riders-nav-link">
+                <Link
+                  to="/contact"
+                  className="nav-link riders-nav-link text-light"
+                >
                   Contact
                 </Link>
               </li>
               <li className="nav-item riders-hover">
-                <Link to="/login" className="nav-link riders-nav-link">
+                <Link
+                  to="/login"
+                  className="nav-link riders-nav-link text-light"
+                >
                   Login
+                  <p>{loggedInUser.name}</p>
                 </Link>
               </li>
             </ul>

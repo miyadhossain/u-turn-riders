@@ -1,9 +1,9 @@
 const firebaseConfig = {
-  apiKey: "AIzaSyD-Dyy0vCYZms3M78u5DAOYJ1dWfqzvqZ4",
-  authDomain: "burjj-al-aarab.firebaseapp.com",
-  projectId: "burjj-al-aarab",
-  storageBucket: "burjj-al-aarab.appspot.com",
-  messagingSenderId: "251525802976",
-  appId: "1:251525802976:web:b87782b7e92d10f8a01985",
+  apiKey: "AIzaSyDNV6RdszEGclaMM_SU48FHMMtAVMKjd3Y",
+  authDomain: "u-turn-riders.firebaseapp.com",
+  projectId: "u-turn-riders",
+  storageBucket: "u-turn-riders.appspot.com",
+  messagingSenderId: "125697211025",
+  appId: "1:125697211025:web:3e8097e329c450e3ab1d30",
 };
 export default firebaseConfig;

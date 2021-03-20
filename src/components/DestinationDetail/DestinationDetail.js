@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useParams } from "react-router";
-import MapImg from "../../images/Map.png";
 import PeopleIcon from "../../images/peopleicon.png";
 import FakeData from "../FakeData/FakeData.json";
+import GoogleMap from "../GoogleMap";
 import "./DestinationDetail.css";
 
 const DestinationDetail = () => {
@@ -32,7 +32,7 @@ const DestinationDetail = () => {
           <div className="col-md-4 col-sm">
             <div className="searchDiv">
               <div style={{ padding: "30px" }}>
-                <label className="text-dark" htmlFor="">
+                <label className="text-light" htmlFor="">
                   Pick From
                 </label>
                 <input
@@ -42,7 +42,7 @@ const DestinationDetail = () => {
                   className="form-control"
                   type="text"
                 />
-                <label className="text-dark" htmlFor="">
+                <label className="text-light" htmlFor="">
                   Pick To
                 </label>
                 <input
@@ -52,11 +52,11 @@ const DestinationDetail = () => {
                   className="form-control"
                   type="text"
                 />
-                <label className="text-dark" htmlFor="">
+                <label className="text-light" htmlFor="">
                   Check In
                 </label>
                 <input onBlur={handleBlur} type="date" name="" id="" />
-                <label className="text-dark" htmlFor="">
+                <label className="text-light" htmlFor="">
                   Check Out
                 </label>
                 <input onBlur={handleBlur} type="date" name="" id="" />
@@ -72,11 +72,7 @@ const DestinationDetail = () => {
           </div>
 
           <div className="col-md-8 col-sm">
-            <img
-              style={{ width: "600px", height: "600px" }}
-              src={MapImg}
-              alt=""
-            />
+            <GoogleMap></GoogleMap>
           </div>
         </div>
       </div>
