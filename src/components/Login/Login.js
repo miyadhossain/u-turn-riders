@@ -12,68 +12,64 @@ const Login = () => {
   const location = useLocation();
   const { from } = location.state || { from: { pathname: "/" } };
   const [newUser, setNewUser] = useState(false);
+  const [user, setUser] = useState({
+    isSignedIn: false,
+    name: "",
+    email: "",
+    password: "",
+    success: false,
+    error: "",
+  });
   const [loggedInUser, setLoggedInUser] = useContext(userContext);
   const { register, errors, watch, handleSubmit } = useForm({});
   const password = useRef({});
   password.current = watch("password", "");
   const onSubmit = () => {
     // sign up
-    if (newUser && loggedInUser.email && loggedInUser.password) {
+    if (newUser && user.email && user.password) {
       firebase
         .auth()
-        .createUserWithEmailAndPassword(
-          loggedInUser.email,
-          loggedInUser.password
-        )
+        .createUserWithEmailAndPassword(user.email, user.password)
         .then(() => {
-          const newUserInfo = { ...loggedInUser };
+          const newUserInfo = { ...user };
           newUserInfo.success = true;
           newUserInfo.error = "";
+          setUser(newUserInfo);
+          updateUserName(user.name);
           setLoggedInUser(newUserInfo);
-          updateUserName(loggedInUser.name);
           history.replace(from);
         })
         .catch((error) => {
           const errorMessage = error.message;
-          const newUserInfo = { ...loggedInUser };
+          const newUserInfo = { ...user };
           newUserInfo.error = errorMessage;
           newUserInfo.success = false;
-          setLoggedInUser(newUserInfo);
+          setUser(newUserInfo);
         });
     }
     // sign in
     if (!newUser) {
       firebase
         .auth()
-        .signInWithEmailAndPassword(loggedInUser.email, loggedInUser.password)
+        .signInWithEmailAndPassword(user.email, user.password)
         .then((res) => {
-          const newUserInfo = { ...loggedInUser };
+          const newUserInfo = { ...user };
           newUserInfo.success = true;
           newUserInfo.error = "";
+          setUser(newUserInfo);
+          updateUserName(user.name);
           setLoggedInUser(newUserInfo);
-          updateUserName(loggedInUser.name);
           history.replace(from);
           console.log("sign in user info", res.user);
         })
         .catch((error) => {
           const errorMessage = error.message;
-          const newUserInfo = { ...loggedInUser };
+          const newUserInfo = { ...user };
           newUserInfo.error = errorMessage;
           newUserInfo.success = false;
-          setLoggedInUser(newUserInfo);
+          setUser(newUserInfo);
         });
     }
-    // sign out
-    // firebase
-    //   .auth()
-    //   .signOut()
-    //   .then(() => {
-    //     // Sign-out successful.
-    //     setLoggedInUser({});
-    //   })
-    //   .catch((error) => {
-    //     // An error happened.
-    //   });
   };
 
   // blur handle
@@ -93,9 +89,9 @@ const Login = () => {
       isFormValid = isPasswordValid && passwordHasNumber;
     }
     if (isFormValid) {
-      const newUserInfo = { ...loggedInUser };
+      const newUserInfo = { ...user };
       newUserInfo[e.target.name] = e.target.value;
-      setLoggedInUser(newUserInfo);
+      setUser(newUserInfo);
     }
   };
   // google sign
@@ -106,7 +102,8 @@ const Login = () => {
       .signInWithPopup(provider)
       .then((result) => {
         const { displayName, email } = result.user;
-        const signInedUser = { name: displayName, email };
+        const signInedUser = { name: displayName, email, success: true };
+        setUser(signInedUser);
         setLoggedInUser(signInedUser);
         history.replace(from);
       })
@@ -124,7 +121,7 @@ const Login = () => {
       .signInWithPopup(fbProvider)
       .then((result) => {
         const { displayName, email } = result.user;
-        const signInedUser = { name: displayName, email };
+        const signInedUser = { name: displayName, email, success: true };
         setLoggedInUser(signInedUser);
         history.replace(from);
       })
@@ -225,9 +222,9 @@ const Login = () => {
         </a>
       </form>
       <h6 className="mt-3" style={{ color: "red", textAlign: "center" }}>
-        {loggedInUser.error}
+        {user.error}
       </h6>
-      {loggedInUser.success && (
+      {user.success && (
         <h6 className="text-center" style={{ color: "green" }}>
           User {newUser ? "created" : "sign in"} successfully.
         </h6>

@@ -5,6 +5,8 @@ import "./Header.css";
 const Header = () => {
   const [loggedInUser, setLoggedInUser] = useContext(userContext);
   const [logout, setLogout] = useContext(userContext);
+  const { success, name, email } = loggedInUser;
+
   return (
     <div className="container">
       <nav className="navbar navbar-expand-lg navbar-light">
@@ -61,21 +63,20 @@ const Header = () => {
                   Contact
                 </Link>
               </li>
-              {/* <li className="nav-item riders-hover">
-                <Link
-                  to="/login"
-                  className="nav-link riders-nav-link text-light"
-                >
-                  Login
-                </Link>
-              </li> */}
+              <li className="nav-item riders-hover nav-link riders-nav-link text-light">
+                {success && <>{name}</>}
+              </li>
               <li
                 onClick={() => setLogout({})}
                 className="nav-item riders-hover"
               >
-                <p className="nav-link riders-nav-link text-light">Sign out</p>
+                <Link
+                  to="/login"
+                  className="nav-link riders-nav-link text-light"
+                >
+                  {success ? <>Sign out</> : <>Sign in</>}
+                </Link>
               </li>
-              <li className="nav-item riders-hover nav-link riders-nav-link text-light"></li>
             </ul>
           </div>
         </div>
