@@ -5,7 +5,7 @@ class GoogleMap extends Component {
   render() {
     return (
       <div>
-        <Map google={this.props.google} zoom={14}>
+        <Map className="mapStyle" google={this.props.google} zoom={14}>
           <Marker onClick={this.onMarkerClick} name={"Current location"} />
 
           <InfoWindow onClose={this.onInfoWindowClose}></InfoWindow>

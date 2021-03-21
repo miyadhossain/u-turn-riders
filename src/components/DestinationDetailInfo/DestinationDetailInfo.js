@@ -25,7 +25,7 @@ const DestinationDetailInfo = () => {
   return (
     <div className="container">
       {form ? (
-        <div className="row mt-3">
+        <div className="row mt-3 ">
           <div className="col-md-4">
             <div className="searchDiv">
               <div style={{ padding: "30px" }}>
@@ -61,7 +61,9 @@ const DestinationDetailInfo = () => {
             </div>
           </div>
           <div className="col-md-8">
-            <GoogleMap></GoogleMap>
+            <div className="">
+              <GoogleMap></GoogleMap>
+            </div>
           </div>
         </div>
       ) : (
@@ -116,42 +118,6 @@ const DestinationDetailInfo = () => {
                   <span className="rideInfo">${ride.rent}</span>
                 </li>
               </ul>
-
-              {/* <div className="rideBook">
-                <div>
-                  <span className="rideInfo">
-                    <img className="rideImg" src={ride.img} alt="" />
-                  </span>
-                  <span className="rideInfo">{ride.rideType}</span>
-                  <span className="rideInfo">
-                    <img className="rideIcon" src={PeopleIcon} alt="" />
-                    <span>{ride.capacity}</span>
-                  </span>
-                  <span className="rideInfo">${ride.rent}</span>
-                </div>
-                <div>
-                  <span className="rideInfo">
-                    <img className="rideImg" src={ride.img} alt="" />
-                  </span>
-                  <span className="rideInfo">{ride.rideType}</span>
-                  <span className="rideInfo">
-                    <img className="rideIcon" src={PeopleIcon} alt="" />
-                    <span>{ride.capacity}</span>
-                  </span>
-                  <span className="rideInfo">${ride.rent}</span>
-                </div>
-                <div>
-                  <span className="rideInfo">
-                    <img className="rideImg" src={ride.img} alt="" />
-                  </span>
-                  <span className="rideInfo">{ride.rideType}</span>
-                  <span className="rideInfo">
-                    <img className="rideIcon" src={PeopleIcon} alt="" />
-                    <span>{ride.capacity}</span>
-                  </span>
-                  <span className="rideInfo">${ride.rent}</span>
-                </div>
-              </div> */}
             </div>
           </div>
           <div className="col-md-8">

@@ -83,3 +83,14 @@
   content: "";
   top: 5px;
 }
+
+/* google map style */
+@media only screen and (max-width: 600px) {
+  .mediaQry {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .map {
+    width: 50px;
+  }
+}

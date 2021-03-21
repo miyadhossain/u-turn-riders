@@ -6,6 +6,7 @@ import DestinationDetailInfo from "./components/DestinationDetailInfo/Destinatio
 import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
 import Login from "./components/Login/Login";
+import NotFound from "./components/NotFound/NotFound";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 export const userContext = createContext();
 
@@ -29,6 +30,9 @@ function App() {
             <PrivateRoute path="/destination/:rideType">
               <DestinationDetailInfo></DestinationDetailInfo>
             </PrivateRoute>
+            <Route path="*">
+              <NotFound></NotFound>
+            </Route>
           </Switch>
         </Router>
       </div>

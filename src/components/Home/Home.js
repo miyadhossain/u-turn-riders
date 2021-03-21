@@ -13,7 +13,7 @@ const Home = () => {
         <div className="col-md-12 justify-content-center">
           <div className="row justify-content-center">
             {rides.map((ride) => (
-              <Ride ride={ride}></Ride>
+              <Ride key={ride.id} ride={ride}></Ride>
             ))}
           </div>
         </div>
