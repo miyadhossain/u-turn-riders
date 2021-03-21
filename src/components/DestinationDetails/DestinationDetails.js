@@ -3,9 +3,9 @@ import { useParams } from "react-router";
 import PeopleIcon from "../../images/peopleicon.png";
 import FakeData from "../FakeData/FakeData.json";
 import GoogleMap from "../GoogleMap/GoogleMap";
-import "./DestinationDetailInfo.css";
+import "./DestinationDetails.css";
 
-const DestinationDetailInfo = () => {
+const DestinationDetails = () => {
   const [destination, setDestination] = useState({
     pickFrom: "",
     pickTo: "",
@@ -136,4 +136,4 @@ const DestinationDetailInfo = () => {
   );
 };
 
-export default DestinationDetailInfo;
+export default DestinationDetails;

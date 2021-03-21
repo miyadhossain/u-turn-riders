@@ -64,7 +64,7 @@ const Header = () => {
                 </Link>
               </li>
               <li className="nav-item riders-hover nav-link riders-nav-link text-light">
-                {success && <>{name}</>}
+                {success ? <>{name}</> : <li>{email}</li>}
               </li>
               <li
                 onClick={() => setLogout({})}

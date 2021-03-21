@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { createContext, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
-import DestinationDetailInfo from "./components/DestinationDetailInfo/DestinationDetailInfo";
+import DestinationDetails from "./components/DestinationDetails/DestinationDetails";
 import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
 import Login from "./components/Login/Login";
@@ -28,7 +28,7 @@ function App() {
               <Login></Login>
             </Route>
             <PrivateRoute path="/destination/:rideType">
-              <DestinationDetailInfo></DestinationDetailInfo>
+              <DestinationDetails></DestinationDetails>
             </PrivateRoute>
             <Route path="*">
               <NotFound></NotFound>

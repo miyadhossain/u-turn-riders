@@ -1,3 +1,5 @@
+import { faFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import firebase from "firebase/app";
 import "firebase/auth";
 import React, { useContext, useRef, useState } from "react";
@@ -60,7 +62,6 @@ const Login = () => {
           updateUserName(user.name);
           setLoggedInUser(newUserInfo);
           history.replace(from);
-          console.log("sign in user info", res.user);
         })
         .catch((error) => {
           const errorMessage = error.message;
@@ -109,7 +110,10 @@ const Login = () => {
       })
       .catch((error) => {
         const errorMessage = error.message;
-        console.log(errorMessage);
+        const newUserInfo = { ...user };
+        newUserInfo.error = errorMessage;
+        newUserInfo.success = false;
+        setUser(newUserInfo);
       });
   };
 
@@ -126,25 +130,30 @@ const Login = () => {
         history.replace(from);
       })
       .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
         const errorMessage = error.message;
-        // The email of the user's account used.
-        console.log(errorCode, errorMessage);
+        const newUserInfo = { ...user };
+        newUserInfo.error = errorMessage;
+        newUserInfo.success = false;
+        setUser(newUserInfo);
       });
   };
-  const updateUserName = (name) => {
+  const updateUserName = (name, email) => {
     const user = firebase.auth().currentUser;
 
     user
       .updateProfile({
         displayName: name,
+        email: email,
       })
       .then(() => {
-        console.log("update successfully");
+        const newUserInfo = { ...user };
+        setUser(newUserInfo);
       })
       .catch((error) => {
-        console.log(error);
+        const errorMessage = error.message;
+        const newUserInfo = { ...user };
+        newUserInfo.error = errorMessage;
+        setUser(newUserInfo);
       });
   };
   return (
@@ -224,23 +233,18 @@ const Login = () => {
       <h6 className="mt-3" style={{ color: "red", textAlign: "center" }}>
         {user.error}
       </h6>
-      {user.success && (
-        <h6 className="text-center" style={{ color: "green" }}>
-          User {newUser ? "created" : "sign in"} successfully.
-        </h6>
-      )}
       <h6 className="text-center text-light">Or</h6>
       <button
         onClick={handleGoogleSignIn}
         className="mx-auto d-block btn btn-outline-primary rounded-pill"
       >
-        Continue with Google
+        <FontAwesomeIcon icon={faGoogle} size="1x" /> Continue with Google
       </button>
       <button
         onClick={handleFbSignIn}
         className="mx-auto d-block btn btn-outline-primary rounded-pill"
       >
-        Continue with Facebook
+        <FontAwesomeIcon icon={faFacebook} size="1x" /> Continue with Facebook
       </button>
     </div>
   );
