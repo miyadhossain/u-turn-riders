@@ -12,7 +12,7 @@ const Header = () => {
       <nav className="navbar navbar-expand-lg navbar-light">
         <div className="container-fluid">
           <Link to="/home" className="navbar-brand text-light">
-            Riders
+            u-Turn Riders
           </Link>
           <button
             className="navbar-toggler"
