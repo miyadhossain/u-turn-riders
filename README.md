@@ -1,9 +1,44 @@
-<!-- Site title -->
-
 # u-Turn Riders
 
-### Website Features
+### A Ride Sharing Web Application
 
-### Bike, Car, Bus and Metro Train services are available here. To get services users have to create an account. After successfully created an acccount users can access the services. Users can set destination and pick up the vehicle as users needed. Users can get riding details information such as Rent, Seat capacity and many more before access the services.
+## Features
 
-#### https://u-turn-riders.web.app/
+- Home Page
+
+  - Nav bar
+  - Vehicles categories overview
+
+- Login Page
+
+  - Users can manually create accounts or log in
+  - Users can log in automatically with a Google account
+
+- Destination Page
+  - Pickup From and destination location added
+  - Integrated Google map
+  - Vehicles capacity status
+
+## ScreenShot
+
+<!-- imgages -->
+
+![SS1](https://res.cloudinary.com/dxvzhnyuo/image/upload/v1619855694/riders_dkb2aq.png)
+![SS2](https://res.cloudinary.com/dxvzhnyuo/image/upload/v1619855684/map_ubuenm.png)
+![SS3](https://res.cloudinary.com/dxvzhnyuo/image/upload/v1619855706/log_fvzzyt.png)
+
+## Getting Started App
+
+<!-- Code -->
+
+```bash
+  npm install
+
+  npm start
+```
+
+## Project Link
+
+<!-- Links -->
+
+[Live Site](https://u-turn-riders.web.app/)
