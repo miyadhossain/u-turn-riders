@@ -19,6 +19,12 @@
   - Integrated Google map
   - Vehicles capacity status
 
+## Project Link
+
+<!-- Links -->
+
+[Live Site](https://u-turn-riders.web.app/)
+
 ## ScreenShot
 
 <!-- imgages -->
@@ -36,9 +42,3 @@
 
   npm start
 ```
-
-## Project Link
-
-<!-- Links -->
-
-[Live Site](https://u-turn-riders.web.app/)
